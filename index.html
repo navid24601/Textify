@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textify - Offline Text Tools</title>
+    <link rel="stylesheet" href="style.css"/> 
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Textify</h1>
+        <p>Offline Text Transformation & Encryption Tool</p>
+    </header>
+
+    <div class="main-grid">
+
+        <!-- INPUT SECTION -->
+        <div class="card">
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <span style="font-weight:bold; color:var(--primary); align-self:center;">INPUT</span>
+                    <input type="file" id="fileInput" class="hidden">
+                    <button onclick="document.getElementById('fileInput').click()" class="outline-btn" title="Upload Text File">
+                        📂 Upload
+                    </button>
+                    <button onclick="clearInput()" class="outline-btn" title="Clear Input">
+                        ❌ Clear
+                    </button>
+                </div>
+                <div class="toolbar-group">
+                    <button onclick="copyToClipboard('input')" class="secondary-btn">📋 Copy</button>
+                    <button onclick="saveFile('input')" class="secondary-btn">💾 Save</button>
+                </div>
+            </div>
+            <div class="text-wrapper">
+                <textarea id="inputText" placeholder="Type, paste, or upload text here..."></textarea>
+                <div class="stats" id="inputStats">0 words | 0 characters</div>
+            </div>
+        </div>
+
+        <!-- ACTIONS SECTION -->
+        <div class="actions-panel">
+            
+            <!-- Minify & Clean -->
+            <div class="action-group">
+                <h3>Minify & Clean</h3>
+                <div class="btn-grid">
+                    <button onclick="transform('stripAll')">Strip All Space</button>
+                    <button onclick="transform('removeEmptyLines')">No Empty Lines</button>
+                    <button onclick="transform('oneLine')">To One Line</button>
+                    <button onclick="transform('trimLines')">Trim Lines</button>
+                </div>
+            </div>
+
+            <!-- Case Converter -->
+            <div class="action-group">
+                <h3>Case Converter</h3>
+                <div class="btn-grid">
+                    <button onclick="transform('upper')">UPPER CASE</button>
+                    <button onclick="transform('lower')">lower case</button>
+                    <button onclick="transform('title')">Title Case</button>
+                    <button onclick="transform('sentence')">Sentence case</button>
+                    <button onclick="transform('camel')">camelCase</button>
+                    <button onclick="transform('pascal')">PascalCase</button>
+                    <button onclick="transform('snake')">snake_case</button>
+                    <button onclick="transform('reverse')">esreveR</button>
+                </div>
+            </div>
+
+            <!-- Encoding -->
+            <div class="action-group">
+                <h3>Encoding</h3>
+                <div class="btn-grid">
+                    <button onclick="transform('b64encode')">Base64 Encode</button>
+                    <button onclick="transform('b64decode')">Base64 Decode</button>
+                    <button onclick="transform('ntlm')" class="full-width">NTLM Hash (Generator)</button>
+                </div>
+            </div>
+
+            <!-- AES Encryption -->
+            <div class="action-group">
+                <h3>AES Encryption (GCM)</h3>
+                <input type="password" id="aesKey" placeholder="Enter Secret Key">
+                <div class="btn-grid">
+                    <button onclick="handleAES('encrypt')">🔒 Encrypt</button>
+                    <button onclick="handleAES('decrypt')">🔓 Decrypt</button>
+                </div>
+                <p style="font-size:0.7rem; color: #666; margin-top:5px;">*Uses AES-GCM-256. Output includes IV.</p>
+            </div>
+
+        </div>
+
+        <!-- OUTPUT SECTION -->
+        <div class="card">
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <span style="font-weight:bold; color:var(--primary); align-self:center;">OUTPUT</span>
+                </div>
+                <div class="toolbar-group">
+                    <button onclick="copyToClipboard('output')" class="secondary-btn">📋 Copy</button>
+                    <button onclick="saveFile('output')" class="secondary-btn">💾 Save</button>
+                </div>
+            </div>
+            <div class="text-wrapper">
+                <textarea id="outputText" placeholder="Results appear here..."></textarea>
+                <div class="stats" id="outputStats">0 words | 0 characters</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="toast" class="toast">Action Complete</div>
+
+<script src="script.js" type="text/javascript"></script>
+</body>
+</html>
